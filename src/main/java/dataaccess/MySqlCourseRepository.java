@@ -74,13 +74,14 @@ public class MySqlCourseRepository implements MyCourseRepository{
                         resultSet.getDate("endDate"),
                         CourseType.valueOf(resultSet.getString("coursetype"))
                         ));
-                return courseList;
+
 
             }
+            return courseList;
         } catch (SQLException e) {
             throw new DatabaseException("Database error occured!");
         }
-        return null;
+
     }
 
     @Override
