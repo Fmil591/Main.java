@@ -9,6 +9,7 @@ import domain.CourseType;
 import domain.InvalidValueException;
 
 import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -51,6 +52,9 @@ public class Cli {
                 case "6":
                     courseSearch();
                     break;
+                case "7":
+                    runningCourses();
+                    break;
                 case "x":
                     System.out.println("Auf Wiedersehen");
                     break;
@@ -60,6 +64,25 @@ public class Cli {
             }
         }
 scan.close();
+    }
+
+    private void runningCourses() {
+        System.out.println("Aktuell laufende Kurse: ");
+        List<Course> list;
+        try{
+list = repo.findAllRunningCourses();
+for(Course  course : list)
+{
+    System.out.println(course);
+}
+        } catch (DatabaseException databaseException)
+        {
+            System.out.println("Datenbankfehler bei Kurs-Anzeige für laufende Kurse" + databaseException.getMessage());
+        } catch (Exception exception)
+        {
+            System.out.println("Unbekannter Fehler bei Kurs-Anzeige für laufende Kurse: " + exception.getMessage());
+        }
+
     }
 
     private void courseSearch() {
@@ -159,7 +182,7 @@ for(Course course : courseList)
             System.out.println("Name: ");
             name = scan.nextLine();
             if(name.equals("")) throw new IllegalArgumentException("Eingabe darf nicht leer sein!");
-                                    System.out.println("Beschreibung: ");
+            System.out.println("Beschreibung: ");
             description = scan.nextLine();
             if(description.equals("")) throw new IllegalArgumentException("Eingabe darf nicht leer sein!");
             System.out.println("Stundenanzahl");
@@ -237,6 +260,7 @@ for(Course course : courseList)
         System.out.println("-----------------------------------------------------KURSMANAGEMENT---------------------------");
         System.out.println("(1) Kurs eingeben \t (2) Alle Kurse anzeigen \t" + "(3) Kursdetails anzeigen");
         System.out.println("(4) Kursdetails ändern \t (5) Kurs löschen \t" + "(6) Kurssuche");
+        System.out.println("(7) Laufende Kurse \t (-) ---- \t" + "(-) ----");
         System.out.println("(x) ENDE");
     }
 
