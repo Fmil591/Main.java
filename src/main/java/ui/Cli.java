@@ -66,6 +66,8 @@ public class Cli {
 scan.close();
     }
 
+
+
     private void runningCourses() {
         System.out.println("Aktuell laufende Kurse: ");
         List<Course> list;
@@ -260,7 +262,7 @@ for(Course course : courseList)
         System.out.println("-----------------------------------------------------KURSMANAGEMENT---------------------------");
         System.out.println("(1) Kurs eingeben \t (2) Alle Kurse anzeigen \t" + "(3) Kursdetails anzeigen");
         System.out.println("(4) Kursdetails ändern \t (5) Kurs löschen \t" + "(6) Kurssuche");
-        System.out.println("(7) Laufende Kurse \t (-) ---- \t" + "(-) ----");
+        System.out.println("(7) Laufende Kurse \t (8) Student durch ID anzeigen \t" + "(-) ----");
         System.out.println("(x) ENDE");
     }
 

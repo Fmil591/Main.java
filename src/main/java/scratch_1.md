@@ -4,3 +4,4 @@
 10.12 Video 9 fertig gemacht, getestet, nun kann man Kurse hinzufügen in IntelliJ, Video 10 fertig, Kurse abäbnder jetzt möglich
 11.12 Video 11 fertig gemacht, löschen funktioniert nun, getestet, Video 12 fertig, Kurse können nun mit Suche gefunden werden, Fehler müssen noch ausgebessert werden, zeigt noch keine Kurse an bei Eingabe, Video 13 fertig, alle Fehler ausgebessert, funktioniert nun vollständig
 Student geaddet, Interface und MySqlStudentRepository gemacht, 
+12.12 probiert Student zu machen

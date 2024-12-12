@@ -17,39 +17,42 @@ public class MySqlStudentRepository implements MyStudentRepository{
     }
 
     @Override
-    public Optional<Student> findAllStudentsById(Long id) {
+    public List<Student> findAllStudentsById(String id) {
         Assert.notNull(id);
-        if(countStudentsInDbWithId(id)==0)
+
         {
-            return Optional.empty();
-        } else {
-            try {
-                String sql = "SELECT * FROM `courses` WHERE `id` = ?";
-                PreparedStatement preparedStatement = con.prepareStatement(sql);
-                preparedStatement.setLong(1, id);
-                ResultSet resultSet = preparedStatement.executeQuery();
+            if(id.isEmpty()) {return List.of();}
+            else {
+                try {
+                    String sql = "SELECT * FROM `courses` WHERE `id` = ?";
+                    PreparedStatement preparedStatement = con.prepareStatement(sql);
+                    preparedStatement.setString(1, id);
+                    ResultSet resultSet = preparedStatement.executeQuery();
 
-                resultSet.next();
-                Student student = new Student(
-                        resultSet.getLong("id"),
-                        resultSet.getString("vorname"),
-                        resultSet.getString("nachname"),
-                        resultSet.getDate("geburtsdatum")
-                );
-                return Optional.of(student);
+                    resultSet.next();
+                    Student student = new Student(
+                            resultSet.getLong("id"),
+                            resultSet.getString("vorname"),
+                            resultSet.getString("nachname"),
+                            resultSet.getDate("geburtsdatum")
+                    );
+                    return List.of(student);
 
-            } catch (SQLException sqlException){
-                throw new DatabaseException(sqlException.getMessage());
+                } catch (SQLException sqlException){
+                    throw new DatabaseException(sqlException.getMessage());
+                }
+
             }
+        }}
 
-    }}
 
-        private int countStudentsInDbWithId(Long id){
+
+        private int countStudentsInDbWithId(String id){
             try {
 
                 String countSql = "SELECT COUNT(*) FROM `student` WHERE `id`=?";
                 PreparedStatement preparedStatementCount = con.prepareStatement(countSql);
-                preparedStatementCount.setLong(1,id);
+                preparedStatementCount.setString(1,id);
                 ResultSet resultSetCount = preparedStatementCount.executeQuery();
                 resultSetCount.next();
                 int studentCount = resultSetCount.getInt(1);
@@ -58,6 +61,9 @@ public class MySqlStudentRepository implements MyStudentRepository{
                 throw new DatabaseException(sqlException.getMessage());
             }
         }
+
+
+
 
     @Override
     public List<Student> findAllStudentsByVorname(String name) {
